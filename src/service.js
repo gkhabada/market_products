@@ -1,11 +1,6 @@
 import { XMLParser } from 'fast-xml-parser';
 
-const options = {
-  ignoreAttributes : false,
-  attributeNamePrefix : '',
-};
-
-export const fetchCsvFile = async () => {
+export const fetchFileFromYandex = async () => {
   const yaHost = 'https://cloud-api.yandex.net/v1/disk/resources/download';
   const token = 'y0_AgAAAAAXaddKAAmcgQAAAADf5-P34Aa6oIv2RGCNgFfBrQ-gvnlQlxs';
   const fileUrl = 'https://disk.yandex.ru/d/nZQg4BEbCYQg-g';
@@ -21,11 +16,15 @@ export const fetchCsvFile = async () => {
 
   const products = await response.text();
 
-
   return products;
 };
 
 export const fetchXmlFile = async () => {
+  const options = {
+    ignoreAttributes : false,
+    attributeNamePrefix : '',
+  };
+
   const response = await fetch('http://localhost:3000/products.xml');
   const products = await response.text();
 
@@ -36,6 +35,6 @@ export const fetchXmlFile = async () => {
 };
 
 export default {
-  fetchCsvFile,
+  fetchFileFromYandex,
   fetchXmlFile,
 }
