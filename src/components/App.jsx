@@ -30,28 +30,15 @@ function App() {
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)} aria-label="basic tabs example">
-            <Tab label="Товары по категория" />
+            <Tab label="Товары по категориям" />
             <Tab label="Поиск товара" />
             <Tab label="Сканировать штрих код" />
           </Tabs>
         </Box>
-        <div
-          role="tabpanel"
-          hidden={tab !== 0}
-        >
-          <ProductsByCategories products={products} />
-        </div>
-        <div
-          role="tabpanel"
-          hidden={tab !== 1}
-        >
-          <SearchProducts products={products} />
-        </div>
-        <div
-          role="tabpanel"
-          hidden={tab !== 2}
-        >
-          <ScannerCode products={products} />
+        <div role="tabpanel">
+          { tab == 0 && <ProductsByCategories products={products} /> }
+          { tab == 1 && <SearchProducts products={products} /> }
+          { tab == 2 && <ScannerCode products={products} /> }
         </div>
       </Box>
     </div>

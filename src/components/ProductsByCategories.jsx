@@ -10,6 +10,11 @@ import ProductsTable from './ProductsTable';
 
 export default function ProductsByCategories({ products }) {
   const [categories, setCategories] = useState([]);
+  const [expandedPanel, setExpandedPanel] = useState(false);
+
+  const handleAccordionChange = (panel) => (event, isExpanded) => {
+    setExpandedPanel(isExpanded ? panel : false);
+  };
 
   useEffect(() => {
     setCategories(sortByCategories(products));
@@ -20,8 +25,13 @@ export default function ProductsByCategories({ products }) {
   return (
     <div className='product-accordion'>
       {
-        categories.map((category) => (
-          <Accordion key={category['Код']}>
+        categories.map((category, index) => (
+          <Accordion
+            key={category['Код']}
+            TransitionProps={{ timeout: 0 }}
+            expanded={expandedPanel === `panel-${index}`}
+            onChange={handleAccordionChange(`panel-${index}`)}
+          >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -30,7 +40,7 @@ export default function ProductsByCategories({ products }) {
               <Typography>{category['Наименование']}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <ProductsTable products={category.products} />
+              {expandedPanel === `panel-${index}` && <ProductsTable products={category.products} />}
             </AccordionDetails>
           </Accordion>
         ))
