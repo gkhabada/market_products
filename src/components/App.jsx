@@ -17,7 +17,8 @@ function App() {
   const [tab, setTab] = useState(0);
 
   const getProducts = async () => {
-    const response = await api.fetchXmlFile();
+    const response = await api.fetchFileFromYandex();
+    // const response = await api.fetchXmlFile();
     setProducts(response);
   };
 

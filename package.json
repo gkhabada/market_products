@@ -8,12 +8,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
     "@ericblade/quagga2": "^1.8.2",
     "@mui/icons-material": "^5.11.16",
-    "@mui/material": "^5.12.1",
-    "fast-xml-parser": "^4.2.0",
+    "@mui/material": "^5.13.0",
+    "fast-xml-parser": "^4.2.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-qr-barcode-scanner": "^1.0.6"
@@ -21,7 +21,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^1.0.7",
     "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.22",
+    "postcss": "^8.4.23",
     "vite": "^2.8.0"
   }
 }
