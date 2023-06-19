@@ -1,5 +1,25 @@
 body {
+  position: relative;
   margin: 0;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.loading {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  display: grid;
+  place-content: center;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.loading-skeleton__item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }

@@ -7,20 +7,23 @@ const parserOptions = {
 
 export const fetchFileFromYandex = async () => {
   const yaHost = 'https://cloud-api.yandex.net/v1/disk/public/resources';
-  const fileName = 'ExportCatalog.csv';
+  const fileName = 'products.xml';
   // const token = 'y0_AgAAAAAXaddKAAmcgQAAAADf5-P34Aa6oIv2RGCNgFfBrQ-gvnlQlxs';
-  const encodeFileUrl = encodeURIComponent('https://disk.yandex.ru/d/nZQg4BEbCYQg-g');
+  const encodeFileUrl = encodeURIComponent('https://disk.yandex.ru/d/tveK9AdlS0A6Xg');
 
+  // headers: {
+  //   'content-type': 'text/csv;charset=UTF-8',
+  //   'Authorization': 'OAuth ' + token,
+  // }
   // ?path=${fileName}&public_key${token}
-  const response = await fetch(`${yaHost}?public_key=${encodeFileUrl}&path=/&limit=1000&name=${fileName}}`, {
-    method: 'get',
-    headers: {
-      'content-type': 'text/csv;charset=UTF-8',
-      // 'Authorization': 'OAuth ' + token,
-    }
-  });
 
-  const fileUrl = (await response.json())?.file;
+  const response = await fetch(
+    `${yaHost}?public_key=${encodeFileUrl}&path=/&name=${fileName}`,
+    { method: 'get' }
+  );
+
+  const responseBody = await response.json();
+  const fileUrl = responseBody?.file;
 
   const responseFile = await fetch(fileUrl);
   const products = await responseFile.text();
@@ -28,8 +31,8 @@ export const fetchFileFromYandex = async () => {
   const parser = new XMLParser(parserOptions);
   const productsJson = parser.parse(products);
 
-  return productsJson;
-  // return productsJson['Справочник']['Элемент'];
+  // return productsJson;
+  return productsJson['Справочник']['Элемент'];
 };
 
 export const fetchXmlFile = async () => {

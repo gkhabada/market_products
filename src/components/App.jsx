@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import '../styles/App.css'
 
 import api from '../service';
 
@@ -11,15 +10,20 @@ import Box from '@mui/material/Box';
 import SearchProducts from './SearchProducts';
 import ScannerCode from './ScannerCode';
 import ProductsByCategories from './ProductsByCategories';
+import LoadingComponent from './LoadingComponent';
+import LoadingSkeleton from './LoadingSkeleton';
 
 function App() {
   const [products, setProducts] = useState([]);
   const [tab, setTab] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const getProducts = async () => {
+    setLoading(true);
     const response = await api.fetchFileFromYandex();
     // const response = await api.fetchXmlFile();
     setProducts(response);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -36,6 +40,11 @@ function App() {
             <Tab label="Сканировать штрих код" />
           </Tabs>
         </Box>
+
+        {/* <LoadingComponent state={loading} /> */}
+        <LoadingSkeleton state={loading} />
+
+
         <div role="tabpanel">
           { tab == 0 && <ProductsByCategories products={products} /> }
           { tab == 1 && <SearchProducts products={products} /> }
