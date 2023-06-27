@@ -1,0 +1,43 @@
+.accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordion__item {
+  border-bottom: 1px solid grey;
+}
+
+.accordion .accordion__title {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  padding: 0.5em;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-size: 1em;
+
+  &:hover {
+    background-color: var(--focus);
+  }
+}
+
+.accordion__title_icon {
+  margin-left: auto;
+  transition: 200ms;
+}
+
+.accordion__item.accordion__item--active .accordion__title {
+  background-color: var(--primary);
+  color: white;
+}
+
+.accordion__item.accordion__item--active .accordion__title_icon {
+  transform: rotate(180deg);
+}
+
+.accordion .accordion__content {
+  /* border: 1px solid grey; */
+  padding: 0.5em 1em;
+}

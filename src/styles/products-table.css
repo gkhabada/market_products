@@ -1,0 +1,37 @@
+.products-table {
+  overflow: auto;
+  max-width: 100%;
+}
+
+.products-table table {
+  min-width: 450px;
+  width: 100%;
+}
+
+.products-table thead {
+  text-align: left;
+}
+
+.products-table tr:nth-child(2n) {
+  background-color: var(--focus);
+}
+
+.products-table th,
+.products-table td {
+  padding: 0.75em 0.5em;
+}
+
+.products-table th:first-child,
+.products-table td:first-child {
+  text-align: center;
+  padding: 0.75em 0.25em;
+}
+
+.products-table td {
+  border-top: 1px solid grey;
+}
+
+.products-table td span {
+  opacity: 0.7;
+  font-size: 0.9em;
+}

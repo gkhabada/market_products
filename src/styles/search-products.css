@@ -1,0 +1,25 @@
+.search-products {
+  padding: 1em;
+}
+
+input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid grey;
+  font-size: 1em;
+  text-indent: 0.5em;
+  margin-bottom: 1em;
+  padding: 0.8em 0;
+  outline: none;
+  transition: 200ms;
+
+  &:focus {
+    border-color: var(--primary);
+    background-color: aliceblue;
+  }
+}
+
+.search-products__not-found {
+  text-align: center;
+  opacity: 0.6;
+}

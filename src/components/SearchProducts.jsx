@@ -1,7 +1,5 @@
 import { useState } from 'react'
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
+import '../styles/search-products.css';
 import ProductsTable from './ProductsTable';
 
 export default function SearchProducts({ products }) {
@@ -15,26 +13,18 @@ export default function SearchProducts({ products }) {
   };
 
   return (
-    <div className='search-products pt-3'>
-      <TextField
+    <div className='search-products'>
+      <input
         value={searchValue}
-        label="Введите название товара"
-        variant="filled"
-        fullWidth
+        placeholder="Введите название товара"
         autoFocus
         onInput={(e) => setSearchValue(e.target.value)}
       />
-      {/* <Button
-        variant="contained"
-        size="medium"
-      >
-        <SearchIcon />
-      </Button> */}
 
       {
         filteredProducts().length
         ? <ProductsTable products={filteredProducts()} />
-        : <p className='text-center'>Нет соответствующих товаров</p>
+        : <p className='search-products__not-found'>Нет соответствующих товаров</p>
       }
     </div>
   )

@@ -1,37 +1,33 @@
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { useMemo } from 'react';
+import '../styles/products-table.css';
 
-export default function ProductsTable({ products }) {
+export default function ProductsTable({ products = [] }) {
+  const sortedProducts = useMemo(() => {
+    return products.sort((a, b) => a['Наименование'] > b['Наименование'] ? 1 : -1);
+  }, [products]);
+
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 450 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>№</TableCell>
-            <TableCell>Наименование</TableCell>
-            <TableCell>Цена</TableCell>
-            <TableCell>Количество</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        {products.map((product, index) => (
-            <TableRow
-              key={product['Код']}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">{index + 1}</TableCell>
-              <TableCell>{product['Наименование']}</TableCell>
-              <TableCell>{product['Цена']}₽</TableCell>
-              <TableCell>{product['Остаток']}</TableCell>
-            </TableRow>
+    <div className='products-table'>
+      <table cellSpacing='0' cellPadding='0'>
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Наименование</th>
+            <th>Цена</th>
+            <th>Количество</th>
+          </tr>
+        </thead>
+        <tbody>
+        {sortedProducts.map((product, index) => (
+            <tr key={product['Код']}>
+              <td>{index + 1}</td>
+              <td>{product['Наименование']}</td>
+              <td>{product['Цена']} <span>₽</span></td>
+              <td>{product['Остаток']}</td>
+            </tr>
           ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        </tbody>
+      </table>
+    </div>
   )
 }

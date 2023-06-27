@@ -36,7 +36,7 @@ export const fetchFileFromYandex = async () => {
 };
 
 export const fetchXmlFile = async () => {
-  const response = await fetch('http://localhost:3000/products.xml');
+  const response = await fetch(`${window.location.href}products.xml`);
   const products = await response.text();
 
   const parser = new XMLParser(parserOptions);

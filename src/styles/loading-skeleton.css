@@ -1,0 +1,11 @@
+/* .loading-skeleton {
+  display: flex;
+  flex-direction: column;
+} */
+
+.loading-skeleton__item {
+  height: 47px;
+  font-size: 1em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: red;
+}

@@ -1,48 +1,45 @@
 import { useState, useEffect } from 'react'
 import { sortByCategories } from '../utils'
+import '../styles/products-by-categories.css'
 
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ProductsTable from './ProductsTable';
 
 export default function ProductsByCategories({ products }) {
   const [categories, setCategories] = useState([]);
-  const [expandedPanel, setExpandedPanel] = useState(false);
+  const [expandedPanel, setExpandedPanel] = useState(null);
 
-  const handleAccordionChange = (panel) => (event, isExpanded) => {
-    setExpandedPanel(isExpanded ? panel : false);
+  const toggleAccordion = (id) => {
+    setExpandedPanel(id === expandedPanel ? null : id);
   };
+
+  const activeCategory = (category) => (expandedPanel === category['Код']);
 
   useEffect(() => {
     setCategories(sortByCategories(products));
   }, [products]);
 
-  // console.log(products);
-
   return (
-    <div className='product-accordion'>
+    <div className='accordion'>
       {
-        categories.map((category, index) => (
-          <Accordion
+        categories.map((category) => (
+          <div
+            className={`accordion__item ${ activeCategory(category) ? 'accordion__item--active' : '' }`}
             key={category['Код']}
-            TransitionProps={{ timeout: 0 }}
-            expanded={expandedPanel === `panel-${index}`}
-            onChange={handleAccordionChange(`panel-${index}`)}
           >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
+            <button
+              className='accordion__title'
+              onClick={() => toggleAccordion(category['Код'])}
             >
-              <Typography>{category['Наименование']}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {expandedPanel === `panel-${index}` && <ProductsTable products={category.products} />}
-            </AccordionDetails>
-          </Accordion>
+              <span>{category['Наименование']}</span>
+              <span className='material-icons accordion__title_icon'>expand_more</span>
+            </button>
+            {
+              activeCategory(category) &&
+                <div className='accordion__content'>
+                  <ProductsTable products={category.products} />
+                </div>
+            }
+          </div>
         ))
       }
     </div>

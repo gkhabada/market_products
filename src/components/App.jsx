@@ -1,56 +1,62 @@
 import { useState, useEffect } from 'react'
 
 import api from '../service';
-
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-// import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import '../styles/app.css'
 
 import SearchProducts from './SearchProducts';
 import ScannerCode from './ScannerCode';
 import ProductsByCategories from './ProductsByCategories';
-import LoadingComponent from './LoadingComponent';
 import LoadingSkeleton from './LoadingSkeleton';
 
 function App() {
-  const [products, setProducts] = useState([]);
-  const [tab, setTab] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  const [tabsList] = useState([
+    { id: 1, text: 'Товары по категориям', icon: 'format_list_bulleted' },
+    { id: 2, text: 'Поиск товара', icon: 'search' },
+    { id: 3, text: 'Сканировать штрих код', icon: 'qr_code_scanner' },
+  ]);
+  const [tab, setTab] = useState(1);
 
   const getProducts = async () => {
     setLoading(true);
-    const response = await api.fetchFileFromYandex();
-    // const response = await api.fetchXmlFile();
+    // const response = await api.fetchFileFromYandex();
+    const response = await api.fetchXmlFile();
     setProducts(response);
     setLoading(false);
   };
 
   useEffect(() => {
     getProducts();
-}, []);
+  }, []);
 
   return (
     <div className="App">
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)} aria-label="basic tabs example">
-            <Tab label="Товары по категориям" />
-            <Tab label="Поиск товара" />
-            <Tab label="Сканировать штрих код" />
-          </Tabs>
-        </Box>
-
-        {/* <LoadingComponent state={loading} /> */}
-        <LoadingSkeleton state={loading} />
-
-
-        <div role="tabpanel">
-          { tab == 0 && <ProductsByCategories products={products} /> }
-          { tab == 1 && <SearchProducts products={products} /> }
-          { tab == 2 && <ScannerCode products={products} /> }
+      <div className="tabs__wrapper">
+        <div className='tabs'>
+          {
+            tabsList.map(({ id, text, icon }) => (
+              <button
+                className={`tabs__item ${ tab === id ? 'tabs__item--active' : '' }`}
+                key={id}
+                onClick={() => setTab(id)}
+              >
+                <span className='material-icons'>{icon}</span>
+                <span className='tabs__item_text'>{text}</span>
+              </button>
+            ))
+          }
         </div>
-      </Box>
+      </div>
+
+      <LoadingSkeleton state={loading} />
+
+      <div role="tabpanel">
+        { tab == 1 && <ProductsByCategories products={products} /> }
+        { tab == 2 && <SearchProducts products={products} /> }
+        { tab == 3 && <ScannerCode products={products} /> }
+      </div>
     </div>
   )
 }
